@@ -1,7 +1,7 @@
 public class Main {
 
     public static void main(String[] args) {
-        Shavtzak s1 = new Shavtzak(14,0,60);
+        Shavtzak s1 = new Shavtzak(14,0);
         Guard kfir = new Guard("Kfir");
         Guard roei = new Guard("Roei");
         Guard yona = new Guard("Yona");
@@ -18,13 +18,14 @@ public class Main {
         s1.addGuard(moti);
         s1.addGuard(carmi);
 
-        GuardPosition gp1  =new GuardPosition("Gate",1);
-        GuardPosition gp2  =new GuardPosition("Patrol",1);
+        GuardPosition gp1  =new GuardPosition("Gate",1,75);
+        GuardPosition gp2  =new GuardPosition("Patrol",2,60);
 
         s1.addPosition(gp1);
         s1.addPosition(gp2);
 
-        s1.guardList();
+        s1.createGuardList();
+        s1.printList();
 
 
     }
