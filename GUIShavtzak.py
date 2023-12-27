@@ -3,43 +3,38 @@ from tkinter import messagebox
 
 from GUIGuard import GuardEntryWindow
 from GUIPosition import PositionEntryWindow
-from GUIShavtzakInfo import Info
+from GUIInfo import Info
+from GUIResult import Result
 from Shavtzak import Shavtzak, Position
 
-
 class GUIShavtzak:
-    def __init__(self, root):
+    def __init__(self, root, startHour, startMinute):
         self.root = root
         self.root.geometry("500x500")
         self.root.title("Shavtzak App")
+        self.root.configure(bg="lightcyan")  # Set background color
 
         # Create Shavtzak instance
-        self.shavtzak_instance = Shavtzak(0, 0)
+        self.shavtzak_instance = Shavtzak(startHour, startMinute)
 
         # Create GUI elements
-        self.label = tk.Label(root, text="Shavtzak App", font=('Arial', 18))
-        self.label.pack(padx=10, pady=10)
+        self.label = tk.Label(root, text="Shavtzak App", font=('Raleway', 18), bg="lightcyan", fg="black")
+        self.label.pack(pady=(10, 5))  # Adjusted padding
 
-        self.addGuardButton = tk.Button(root, text="Add Guard", command=self.open_guard_entry_window)
-        self.addGuardButton.pack()
+        self.addGuardButton = tk.Button(root, text="Add Guard",font=('Raleway', 14), command=self.open_guard_entry_window, bg="#20bebe", fg="white")
+        self.addGuardButton.pack(pady=5)  # Adjusted padding
 
-        self.addPositionButton = tk.Button(root, text="Add Position", command=self.open_position_entry_window)
-        self.addPositionButton.pack()
+        self.addPositionButton = tk.Button(root, text="Add Position",font=('Raleway', 14), command=self.open_position_entry_window, bg="#20bebe", fg="white")
+        self.addPositionButton.pack(pady=5)  # Adjusted padding
 
-        self.printGuardList = tk.Button(root, text="Print Guards List", command=self.shavtzak_instance.printGuardsList)
-        self.printGuardList.pack()
+        self.makeAShavtzak = tk.Button(root, text="Make A Shavtzak",font=('Raleway', 14), command=self.show_result, bg="#20bebe", fg="white")
+        self.makeAShavtzak.pack(pady=5)  # Adjusted padding
 
-        self.printPositionList = tk.Button(root, text="Print Position List", command=self.shavtzak_instance.printPositionsList)
-        self.printPositionList.pack()
+        self.showGuardsListButton = tk.Button(root, text="Show Info",font=('Raleway', 14), command=self.show_info, bg="#20bebe", fg="white")
+        self.showGuardsListButton.pack(pady=5)  # Adjusted padding
 
-        self.makeAShavtzak = tk.Button(root, text="Make A Shavtzak", command=self.shavtzak_instance.createGuardsList)
-        self.makeAShavtzak.pack()
-
-        self.showGuardsListButton = tk.Button(root, text="Show Info", command=self.show_info)
-        self.showGuardsListButton.pack()
-
-        self.quit_button = tk.Button(root, text="Quit", command=root.quit)
-        self.quit_button.pack()
+        self.quit_button = tk.Button(root, text="Quit",font=('Raleway', 14), command=root.quit, bg="#20bebe", fg="white")
+        self.quit_button.pack(pady=(5, 10))  # Adjusted padding
 
     def open_guard_entry_window(self):
         guard_entry_window = tk.Toplevel(self.root)
@@ -53,9 +48,6 @@ class GUIShavtzak:
         info_window = tk.Toplevel(self.root)
         Info(info_window, self.shavtzak_instance)
 
-
-
-if __name__ == "__main__":
-    root = tk.Tk()
-    app = GUIShavtzak(root)
-    root.mainloop()
+    def show_result(self):
+        result_window = tk.Toplevel(self.root)
+        Result(result_window, self.shavtzak_instance)

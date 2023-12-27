@@ -17,6 +17,9 @@ class Position:
     def timeToSwitch(self):
         return self.stopper == self.timeToGuard
 
+    def clearGuards(self):
+        self.guardList = []
+        self.stopper = self.timeToGuard
 
 
 
