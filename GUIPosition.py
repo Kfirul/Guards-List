@@ -1,43 +1,48 @@
 import tkinter as tk
 from tkinter import messagebox
-from Position import Position
+from Position import Position  # Assuming you have a module named 'Position' with a 'Position' class
 
 class PositionEntryWindow:
     def __init__(self, root, shavtzak_instance):
+        # Initialize the Position Entry Window
         self.root = root
         self.root.geometry("350x350")
         self.root.title("Position Entry")
         self.root.configure(bg="lightcyan")
 
+        # Store the Shavtzak instance for later use
         self.shavtzak_instance = shavtzak_instance
 
+        # StringVars for entry fields
         self.positionName = tk.StringVar()
         self.numOfGuards = tk.StringVar()
         self.timeToGuard = tk.StringVar()
 
+        # Label and Entry for Position Name
         entry_label = tk.Label(root, text="Enter Position Name:", font=('Raleway', 14), bg="lightcyan", fg="black")
         entry_label.pack(pady=10)
-
         entry_field = tk.Entry(root, textvariable=self.positionName, font=('Raleway', 14))
         entry_field.pack(pady=10)
 
+        # Label and Entry for Number of Guards
         entry_label = tk.Label(root, text="Enter Number of Guards:", font=('Raleway', 14), bg="lightcyan", fg="black")
         entry_label.pack(pady=10)
-
         entry_field = tk.Entry(root, textvariable=self.numOfGuards, font=('Raleway', 14))
         entry_field.pack(pady=10)
 
+        # Label and Entry for Time to Guard (in minutes)
         entry_label = tk.Label(root, text="Enter Time to Guard (minutes):", font=('Raleway', 14), bg="lightcyan", fg="black")
         entry_label.pack(pady=10)
-
         entry_field = tk.Entry(root, textvariable=self.timeToGuard, font=('Raleway', 14))
         entry_field.pack(pady=10)
 
+        # Submit button
         submit_button = tk.Button(root, text="Submit", command=self.on_position_entry, font=('Raleway', 14), bg="#20bebe", fg="white")
         submit_button.pack()
 
     def on_position_entry(self):
         try:
+            # Get values from StringVars
             position_name = self.positionName.get()
             num_of_guards = int(self.numOfGuards.get())
             time_to_guard = int(self.timeToGuard.get())
@@ -47,16 +52,17 @@ class PositionEntryWindow:
                 messagebox.showwarning("Position Entry", "Time to guard must be divisible by 5. Please enter a valid value.")
                 return
 
+            # Check if input values are valid
             if position_name and num_of_guards >= 0 and time_to_guard >= 0:
+                # Create a new Position object
                 new_position = Position(position_name, num_of_guards, time_to_guard)
 
+                # Try to add the position to the Shavtzak instance
                 if self.shavtzak_instance.addPosition(new_position):
                     messagebox.showinfo("Position Added", f"Position '{position_name}' added successfully.")
                     self.root.destroy()  # Close the window after submitting
-
                 else:
                     messagebox.showwarning("Position Entry", f"The position '{position_name}' already exists. Please enter a different position name.")
-
             else:
                 messagebox.showwarning("Position Entry", "Invalid input. Please enter valid data.")
         except ValueError:

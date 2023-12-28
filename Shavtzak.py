@@ -1,34 +1,101 @@
 from random import shuffle
 import time
 
-from Position import Position
+from Position import Position  # Assuming Position class is defined in a separate module
 
 class Shavtzak:
     def __init__(self, hour, minute):
+        """
+        Initialize a Shavtzak instance.
+
+        Parameters:
+        - hour: Starting hour for the Shavtzak.
+        - minute: Starting minute for the Shavtzak.
+        """
         self.hour = hour
         self.minute = minute
-        self.guardList = []
-        self.positionList = []
-        self.time = []
+        self.guardList = []  # List to store guards
+        self.positionList = []  # List to store positions
+        self.time = []  # List to store time intervals
 
     def addGuard(self, name):
+        """
+        Add a guard to the Shavtzak's guard list.
+
+        Parameters:
+        - name: Name of the guard to be added.
+
+        Returns:
+        - True if the guard was successfully added.
+        - False if the guard already exists.
+        """
         if name not in self.guardList:
             self.guardList.append(name)
-            return True  # Indicates that the guard was successfully added
+            return True
         else:
-            return False  # Indicates that the guard already exists
+            return False
+
+    def deleteGuard(self, name):
+        """
+        Delete a guard from the Shavtzak's guard list.
+
+        Parameters:
+        - name: Name of the guard to be deleted.
+
+        Returns:
+        - True if the guard was successfully deleted.
+        - False if the guard does not exist.
+        """
+        if name in self.guardList:
+            self.guardList.remove(name)
+            return True
+        else:
+            return False
 
     def randomOrder(self):
+        """
+        Shuffle the order of guards randomly.
+        """
         shuffle(self.guardList)
 
     def addPosition(self, position):
+        """
+        Add a position to the Shavtzak's position list.
+
+        Parameters:
+        - position: Instance of the Position class to be added.
+
+        Returns:
+        - True if the position was successfully added.
+        - False if the position with the same name already exists.
+        """
         if position.name not in [p.name for p in self.positionList]:
             self.positionList.append(position)
             return True
         else:
             return False
 
+    def deletePosition(self, name):
+        """
+        Delete a position from the Shavtzak's position list.
+
+        Parameters:
+        - name: Name of the position to be deleted.
+
+        Returns:
+        - True if the position was successfully deleted.
+        - False if the position does not exist.
+        """
+        if name in [p.name for p in self.positionList]:
+            self.positionList.remove(name)
+            return True
+        else:
+            return False
+
     def createGuardsList(self):
+        """
+        Create a schedule for guards based on positions and time intervals.
+        """
         self.randomOrder()
         self.createClock()
         indexGuard = 0
@@ -49,9 +116,10 @@ class Shavtzak:
                     self.positionList[j].addGuard(str)
                 self.positionList[j].pass5Minutes()
 
-        # self.printShavtzak()
-
     def createClock(self):
+        """
+        Create a clock with time intervals at 5-minute intervals.
+        """
         increaseHour = self.hour
         increaseMinute = self.minute
         count24 = 0
@@ -73,13 +141,22 @@ class Shavtzak:
             increaseMinute += 5
 
     def printGuardsList(self):
+        """
+        Print the list of guards in the Shavtzak.
+        """
         print(self.guardList)
 
     def printPositionsList(self):
+        """
+        Print the list of positions in the Shavtzak.
+        """
         for i in self.positionList:
             print(f'{i.name} ')
 
     def printShavtzak(self):
+        """
+        Print the guards assigned to each position in the Shavtzak.
+        """
         for position in self.positionList:
             print(position.name)
             print(position.guardList)
@@ -107,11 +184,11 @@ def main():
     shavtzak_instance.addPosition(position2)
 
     shavtzak_instance.createGuardsList()
-    shavtzak_instance.printShavtzak()
+    # shavtzak_instance.printShavtzak()
 
-    shavtzak_instance.createGuardsList()
-    shavtzak_instance.printShavtzak()
+    shavtzak_instance.printGuardsList()
+    shavtzak_instance.deleteGuard("Guard1")
+    shavtzak_instance.printGuardsList()
 
 if __name__ == "__main__":
     main()
-
