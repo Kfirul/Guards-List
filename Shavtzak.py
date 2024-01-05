@@ -184,11 +184,9 @@ def main():
     shavtzak_instance.addPosition(position2)
 
     shavtzak_instance.createGuardsList()
-    # shavtzak_instance.printShavtzak()
+    shavtzak_instance.printShavtzak()
 
-    shavtzak_instance.printGuardsList()
-    shavtzak_instance.deleteGuard("Guard1")
-    shavtzak_instance.printGuardsList()
+
 
 if __name__ == "__main__":
     main()
