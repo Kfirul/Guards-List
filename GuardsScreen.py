@@ -22,7 +22,7 @@ class GuardsScreen(Screen):
 
         # Create a toolbar for the second screen
         self.toolbar = MDTopAppBar(
-            title="Second Screen",
+            title="Guards Screen",
             md_bg_color=(0.2, 0.7, 0.5, 1),
             right_action_items=[["arrow-right", lambda x: self.back()]]
         )

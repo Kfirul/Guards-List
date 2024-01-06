@@ -13,7 +13,7 @@ class PositionsScreen(Screen):
 
         # Create a toolbar for the second screen
         self.toolbar = MDTopAppBar(
-            title="Position Screen",
+            title="Positions Screen",
             md_bg_color=(0.2, 0.7, 0.5, 1),  # Set toolbar background color
             right_action_items=[["arrow-right", lambda x: self.back()]]
         )

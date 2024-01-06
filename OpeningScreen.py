@@ -31,7 +31,6 @@ class ShavtzakApp(MDApp):
             pos_hint={"center_x": 0.5, "center_y": 0.55}
         ))
 
-
         time_screen = TimeScreen(screen_manager, name="time_screen")
         screen_manager.add_widget(time_screen)
 

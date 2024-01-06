@@ -46,16 +46,6 @@ class InfoScreen(Screen):
         # Create a layout to hold the information
         layout = BoxLayout(orientation="vertical", spacing=10, padding=10)
 
-        # # Display start hour and minute at the top with smaller font size
-        # start_time_label = MDLabel(
-        #     text=f"Start Time: {self.shavtzak_instance.hour:02d}:{self.shavtzak_instance.minute:02d}",
-        #     theme_text_color="Secondary",
-        #     halign="center",
-        #     font_style="H4",
-        #     font_size=16  # Adjust the font size here
-        # )
-        # layout.add_widget(start_time_label)
-
         # Create horizontal layout for guards list and positions list
         horizontal_layout = BoxLayout(orientation="horizontal", spacing=10)
 
