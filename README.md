@@ -2,12 +2,12 @@
 ![image](https://github.com/Kfirul/Guards-List/assets/98819583/216beef6-cb24-488e-b3b7-65244da62597)
 
 ## Overview
-The Shavtzak application is a tool designed to assist in organizing and managing security shifts ("Shmira" shifts) in a community or organization. It allows users to create and manage a list of guards, positions and generate Shmira schedules.
+The Shavtzak application is a tool designed to assist in organizing and managing security shifts ("Shmira" shifts) in a community or organization. It allows users to create and manage a list of guards, positions and generate Guarding schedules.
 
 ## Features
 Guards Management: Easily add, remove, and view the list of guards available for security shifts.
 Positions Management: Define various security positions that need to be covered during shifts.
-Generate Schedules: Create Shmira schedules based on the defined guards and positions.
+Generate Schedules: Create Guarding schedules based on the defined guards and positions.
 Detailed Information: Access detailed information about each guard and position, including the number of guards assigned to a position and the total guarding time required.
 ## Screens
 ### Main Screen
@@ -26,8 +26,8 @@ Here, users can define various security positions that need to be covered during
 ![image](https://github.com/Kfirul/Guards-List/assets/98819583/11686d5d-e6d7-4c41-9b9e-8d43ae0dd366)
 
 
-### Shmira Schedule Generation Screen (Shavtzak Screen)
-This screen allows users to generate Shmira schedules based on the defined guards and positions. The generated schedule ensures proper coverage of all positions during the specified time.
+### Guarding Schedule Generation Screen (Shavtzak Screen)
+This screen allows users to generate Guarding schedules based on the defined guards and positions. The generated schedule ensures proper coverage of all positions during the specified time.
 ![image](https://github.com/Kfirul/Guards-List/assets/98819583/6afe14b8-e271-4f83-b4f7-67b901d8d966)
 
 ## Contributing
