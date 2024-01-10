@@ -1,6 +1,4 @@
 from kivy.uix.boxlayout import BoxLayout
-from kivymd.uix.label import MDLabel
-from kivymd.uix.button import MDFlatButton
 from kivymd.uix.toolbar import MDTopAppBar
 from kivy.uix.screenmanager import Screen
 from kivy.uix.scrollview import ScrollView
@@ -35,23 +33,21 @@ class ShavtzakScreen(Screen):
         # Create horizontal layout for guards list and positions list
         self.horizontal_layout = BoxLayout(orientation="horizontal", spacing=10)
 
-        # Create vertical layout for positions list on the right
-        positions_scroll_view = ScrollView(size_hint=(0.5, 0.9))
-        positions_list = MDList()
+        positions_list = ScrollView(size_hint=(0.5, 0.9))
+        positions_list_inner = MDList()
 
         positions_label = OneLineListItem(text="Positions List:", theme_text_color="Secondary")
-        positions_list.add_widget(positions_label)
+        positions_list_inner.add_widget(positions_label)
 
         for position in self.shavtzak_instance.positionList:
             item = OneLineListItem(text=position.name)
-            item.bind(on_release=lambda x, p=position: self.on_position_click(p, p.name))
-            positions_list.add_widget(item)
+            item.bind(on_release=lambda x, p=position: self.on_position_click(p))
+            positions_list_inner.add_widget(item)
 
-        positions_scroll_view.add_widget(positions_list)
-        self.horizontal_layout.add_widget(positions_scroll_view)
+        positions_list.add_widget(positions_list_inner)  # Add the MDList to the ScrollView
 
-        # Create vertical layout for guards list on the left
-        guards_scroll_view = ScrollView(size_hint=(0.5, 0.9))
+        self.horizontal_layout.add_widget(positions_list)
+
         self.guards_list = MDList()
 
         guards_label = OneLineListItem(text="Guards List:", theme_text_color="Secondary")
@@ -65,22 +61,11 @@ class ShavtzakScreen(Screen):
 
         self.layout.add_widget(self.horizontal_layout)
 
-    def on_position_click(self, position, position_name):
-        # Highlight the selected position
-        self.highlight_selected_position(position_name)
-
+    def on_position_click(self, position):
         # Display guards for the selected position
-        self.display_guardsList(position)
+        self.display_guards_list(position)
 
-    def highlight_selected_position(self, position_name):
-        # Iterate over all items and apply formatting
-        for item in self.guards_list_inner.children:
-            if item.text == position_name:
-                item.text = f"[b]{item.text}[/b]"
-            else:
-                item.text = item.text.replace("[b]", "").replace("[/b]", "")
-
-    def display_guardsList(self, position):
+    def display_guards_list(self, position):
         # Clear existing guards list
         self.guards_list_inner.clear_widgets()
 

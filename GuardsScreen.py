@@ -1,27 +1,18 @@
 from kivy.clock import Clock
-from kivy.uix.screenmanager import ScreenManager, Screen
+from kivy.uix.screenmanager import Screen
 from kivymd.uix.label import MDLabel
-from kivymd.uix.screen import MDScreen
-from kivymd.app import MDApp
-from kivy.uix.image import Image
 from kivymd.uix.button import MDFlatButton
 from kivymd.uix.textfield import MDTextField
 from kivymd.uix.toolbar import MDTopAppBar
-from kivymd.color_definitions import colors
 
 from Shavtzak import Shavtzak
-
-from kivy.uix.screenmanager import Screen
-from kivymd.uix.textfield import MDTextField
-from kivymd.uix.button import MDFlatButton
-from kivymd.uix.toolbar import MDTopAppBar
 
 class GuardsScreen(Screen):
     def __init__(self, shavtzak_instance, **kwargs):
         super(GuardsScreen, self).__init__(**kwargs)
         self.shavtzak_instance = shavtzak_instance
 
-        # Create a toolbar for the second screen
+        # Create a toolbar for the screen
         self.toolbar = MDTopAppBar(
             title="Guards Screen",
             md_bg_color=(0.2, 0.7, 0.5, 1),
@@ -43,20 +34,22 @@ class GuardsScreen(Screen):
         add_guard_button = MDFlatButton(
             text="Add Guard",
             font_size=17,
+            text_color=(0, 0, 0, 1),
+            md_bg_color=(0.2, 0.7, 0.5, 1),
             pos_hint={"center_x": 0.5, "center_y": 0.6},
         )
         add_guard_button.bind(on_press=self.add_guard)
         self.add_widget(add_guard_button)
 
+        # Add a label for feedback
         self.label = MDLabel(
-
             halign="center",
             pos_hint={"center_x": 0.5, "center_y": 0.5},
             theme_text_color="Secondary"
         )
         self.add_widget(self.label)
 
-        # Add an entry for the guard's name
+        # Add an entry for the guard's name to delete
         self.guard_delete_entry = MDTextField(
             hint_text="Enter Guard's Name To Delete",
             size_hint=(0.8, 1),
@@ -65,21 +58,24 @@ class GuardsScreen(Screen):
         )
         self.add_widget(self.guard_delete_entry)
 
-        # Add a button to add the guard
+        # Add a button to delete the guard
         delete_guard_button = MDFlatButton(
             text="Delete Guard",
             font_size=17,
+            text_color=(0, 0, 0, 1),
+            md_bg_color=(0.2, 0.7, 0.5, 1),
             pos_hint={"center_x": 0.5, "center_y": 0.3},
         )
-        add_guard_button.bind(on_press=self.delete_guard)
+        delete_guard_button.bind(on_press=self.delete_guard)
         self.add_widget(delete_guard_button)
 
     def back(self):
+        # Handle going back to the main screen
         print("Going back to the main screen")
-        # Switch back to the main screen
         self.manager.current = "main_screen"
 
     def add_guard(self, instance):
+        # Handle adding a guard
         guard_name = self.guard_entry.text
         if self.shavtzak_instance.addGuard(guard_name):
             self.label.text = "Add Successfully"
@@ -91,6 +87,7 @@ class GuardsScreen(Screen):
         self.guard_entry.text = ""
 
     def delete_guard(self, instance):
+        # Handle deleting a guard
         guard_name = self.guard_delete_entry.text
         if self.shavtzak_instance.deleteGuard(guard_name):
             self.label.text = "Delete Successfully"

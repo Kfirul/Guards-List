@@ -89,7 +89,6 @@ class Shavtzak:
         for position in self.positionList:
             if position.name == name:
                 self.positionList.remove(position)
-                print("s")
                 return True
         return False
 
@@ -109,7 +108,10 @@ class Shavtzak:
                 if self.positionList[j].timeToSwitch():
                     str = self.time[i] + " "
                     for z in range(0, self.positionList[j].numOfGuards):
-                        str += self.guardList[indexGuard] + " "
+                        if z == self.positionList[j].numOfGuards -1:
+                            str += self.guardList[indexGuard]
+                        else:
+                            str += self.guardList[indexGuard] + ", "
                         indexGuard += 1
                         if indexGuard == len(self.guardList):
                             indexGuard = 0
@@ -187,16 +189,16 @@ def main():
     shavtzak_instance.addPosition(position2)
 
     shavtzak_instance.createGuardsList()
-    shavtzak_instance.printPositionsList()
+    # shavtzak_instance.printPositionsList()
 
-    # shavtzak_instance.printShavtzak()
+    shavtzak_instance.printShavtzak()
     # shavtzak_instance.printGuardsList()
     print("--------")
     shavtzak_instance.deletePosition("Position2")
     shavtzak_instance.deleteGuard("Guard1")
-    # shavtzak_instance.createGuardsList()
-    # shavtzak_instance.printShavtzak()
-    shavtzak_instance.printPositionsList()
+    shavtzak_instance.createGuardsList()
+    shavtzak_instance.printShavtzak()
+    # shavtzak_instance.printPositionsList()
 
 
 
