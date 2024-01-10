@@ -86,11 +86,12 @@ class Shavtzak:
         - True if the position was successfully deleted.
         - False if the position does not exist.
         """
-        if name in [p.name for p in self.positionList]:
-            self.positionList.remove(name)
-            return True
-        else:
-            return False
+        for position in self.positionList:
+            if position.name == name:
+                self.positionList.remove(position)
+                print("s")
+                return True
+        return False
 
     def createGuardsList(self):
         """
@@ -179,12 +180,23 @@ def main():
     # Add positions to Shavtzak
     position1 = Position("Position1", 1, 60)
     position2 = Position("Position2", 2, 90)
+    position3 = Position("Position3", 2, 90)
+
 
     shavtzak_instance.addPosition(position1)
     shavtzak_instance.addPosition(position2)
 
     shavtzak_instance.createGuardsList()
-    shavtzak_instance.printShavtzak()
+    shavtzak_instance.printPositionsList()
+
+    # shavtzak_instance.printShavtzak()
+    # shavtzak_instance.printGuardsList()
+    print("--------")
+    shavtzak_instance.deletePosition("Position2")
+    shavtzak_instance.deleteGuard("Guard1")
+    # shavtzak_instance.createGuardsList()
+    # shavtzak_instance.printShavtzak()
+    shavtzak_instance.printPositionsList()
 
 
 

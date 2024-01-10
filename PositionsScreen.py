@@ -1,4 +1,6 @@
+from kivy.clock import Clock
 from kivy.uix.screenmanager import Screen
+from kivymd.uix.label import MDLabel
 from kivymd.uix.textfield import MDTextField
 from kivymd.uix.button import MDFlatButton
 from kivymd.uix.toolbar import MDTopAppBar
@@ -41,14 +43,14 @@ class PositionsScreen(Screen):
         self.add_widget(self.position_amount_entry)
 
         # Add an entry for the time to guard
-        self.position_time_to_guard_entry = MDTextField(
-            hint_text="Enter Time To Guard",
+        self.position_guarding_time_entry = MDTextField(
+            hint_text="Enter Guarding Time (in minutes)",
             size_hint=(0.35, None),
             height=50,
             pos_hint={"center_x": 0.25, "center_y": 0.6},
             font_size=22,
         )
-        self.add_widget(self.position_time_to_guard_entry)
+        self.add_widget(self.position_guarding_time_entry)
 
         # Add a button to add the position
         add_position_button = MDFlatButton(
@@ -78,6 +80,14 @@ class PositionsScreen(Screen):
         delete_position_button.bind(on_press=self.delete_position)
         self.add_widget(delete_position_button)
 
+        self.label = MDLabel(
+
+            halign="center",
+            pos_hint={"center_x": 0.5, "center_y": 0.3},
+            theme_text_color="Secondary"
+        )
+        self.add_widget(self.label)
+
     def back(self):
         print("Going back to the main screen")
         # Switch back to the main screen
@@ -86,17 +96,29 @@ class PositionsScreen(Screen):
     def add_position(self, instance):
         position_name = self.position_name_entry.text
         position_amount = int(self.position_amount_entry.text)
-        position_time_to_guard = int(self.position_time_to_guard_entry.text)
-        position = Position(position_name, position_amount, position_time_to_guard)
+        position_guarding_time = int(self.position_guarding_time_entry.text)
+        position = Position(position_name, position_amount, position_guarding_time)
 
-        self.shavtzak_instance.addPosition(position)
+        if self.shavtzak_instance.addPosition(position):
+            self.label.text = "Add Successfully"
+            Clock.schedule_once(lambda dt: setattr(self.label, 'text', ""), 3)
+        else:
+            self.label.text = "Existing Position, Enter Other Position's Name"
+            Clock.schedule_once(lambda dt: setattr(self.label, 'text', ""), 3)
+
         self.position_name_entry.text = ""
         self.position_amount_entry.text = ""
-        self.position_time_to_guard_entry.text = ""
+        self.position_guarding_time_entry.text = ""
 
     def delete_position(self, instance):
-        position_name = self.position_name_entry.text
+        position_name = self.position_to_delete_entry.text
+        if self.shavtzak_instance.deletePosition(position_name):
+            self.label.text = "Delete Successfully"
+            Clock.schedule_once(lambda dt: setattr(self.label, 'text', ""), 3)
+        else:
+            self.label.text = "Not Existing Position, Enter Other Position's Name"
+            Clock.schedule_once(lambda dt: setattr(self.label, 'text', ""), 3)
 
-        self.shavtzak_instance.deletePosition(position_name)
-        self.position_name_entry.text = ""
+        self.position_to_delete_entry.text = ""
+
 

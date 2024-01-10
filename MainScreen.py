@@ -13,7 +13,7 @@ from kivymd.color_definitions import colors
 from GuardsScreen import GuardsScreen
 from InfoScreen import InfoScreen
 from PositionsScreen import PositionsScreen
-from ResultScreen import ResultScreen
+from ShavtzakScreen import ShavtzakScreen
 from Shavtzak import Shavtzak
 
 class MainScreen(Screen):
@@ -21,10 +21,11 @@ class MainScreen(Screen):
         super(MainScreen, self).__init__(**kwargs)
         self.shavtzak_instance = shavtzak_instance
 
-        self.toolbar = MDTopAppBar()
+        self.toolbar = MDTopAppBar(
+            title="Menu Screen",
+            md_bg_color=(0.2, 0.7, 0.5, 1)
+        )
         self.toolbar.pos_hint = {"top": 1}
-        self.toolbar.md_bg_color = colors["Teal"]["A700"]
-
         self.add_widget(self.toolbar)
 
         # "Set" button
@@ -88,8 +89,8 @@ class MainScreen(Screen):
 
     # Assuming you have a method to switch screens in your main app class
     def switch_to_result_screen(self, instance, screen_manager):
-        if not any(isinstance(screen, ResultScreen) for screen in screen_manager.screens):
-            result_screen = ResultScreen(self.shavtzak_instance, name="result_screen")
+        if not any(isinstance(screen, ShavtzakScreen) for screen in screen_manager.screens):
+            result_screen = ShavtzakScreen(self.shavtzak_instance, name="result_screen")
             screen_manager.add_widget(result_screen)
 
         self.switch_screen(screen_manager, "result_screen")

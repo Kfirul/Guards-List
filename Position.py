@@ -1,5 +1,5 @@
 class Position:
-    def __init__(self, name, numOfguards, timeToGuard):
+    def __init__(self, name, numOfguards, guardingTime):
         """
         Initialize a Position object.
 
@@ -10,8 +10,8 @@ class Position:
         """
         self.name = name
         self.numOfGuards = numOfguards
-        self.timeToGuard = timeToGuard
-        self.stopper = timeToGuard  # Countdown timer for guard shift
+        self.guardingTime = guardingTime
+        self.stopper = guardingTime  # Countdown timer for guard shift
         self.guardList = []  # List to store guards assigned to the position
 
     def addGuard(self, name):
@@ -31,7 +31,7 @@ class Position:
         """
         self.stopper -= 5
         if self.stopper == 0:
-            self.stopper = self.timeToGuard
+            self.stopper = self.guardingTime
 
     def timeToSwitch(self):
         """
@@ -41,11 +41,11 @@ class Position:
         - True if the countdown timer equals timeToGuard, indicating it's time to switch guards.
         - False otherwise.
         """
-        return self.stopper == self.timeToGuard
+        return self.stopper == self.guardingTime
 
     def clearGuards(self):
         """
         Clear the list of guards for the position and reset the countdown timer to timeToGuard.
         """
         self.guardList = []
-        self.stopper = self.timeToGuard
+        self.stopper = self.guardingTime

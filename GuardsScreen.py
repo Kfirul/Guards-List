@@ -1,3 +1,4 @@
+from kivy.clock import Clock
 from kivy.uix.screenmanager import ScreenManager, Screen
 from kivymd.uix.label import MDLabel
 from kivymd.uix.screen import MDScreen
@@ -47,6 +48,14 @@ class GuardsScreen(Screen):
         add_guard_button.bind(on_press=self.add_guard)
         self.add_widget(add_guard_button)
 
+        self.label = MDLabel(
+
+            halign="center",
+            pos_hint={"center_x": 0.5, "center_y": 0.5},
+            theme_text_color="Secondary"
+        )
+        self.add_widget(self.label)
+
         # Add an entry for the guard's name
         self.guard_delete_entry = MDTextField(
             hint_text="Enter Guard's Name To Delete",
@@ -72,11 +81,22 @@ class GuardsScreen(Screen):
 
     def add_guard(self, instance):
         guard_name = self.guard_entry.text
-        self.shavtzak_instance.addGuard(guard_name)
-        self.shavtzak_instance.printGuardsList()
+        if self.shavtzak_instance.addGuard(guard_name):
+            self.label.text = "Add Successfully"
+            Clock.schedule_once(lambda dt: setattr(self.label, 'text', ""), 3)
+        else:
+            self.label.text = "Existing Guard, Enter Other Guard's Name"
+            Clock.schedule_once(lambda dt: setattr(self.label, 'text', ""), 3)
+
         self.guard_entry.text = ""
 
     def delete_guard(self, instance):
         guard_name = self.guard_delete_entry.text
-        self.shavtzak_instance.deleteGuard(guard_name)
-        self.guard_delete_entry.text =""
+        if self.shavtzak_instance.deleteGuard(guard_name):
+            self.label.text = "Delete Successfully"
+            Clock.schedule_once(lambda dt: setattr(self.label, 'text', ""), 3)
+        else:
+            self.label.text = "Not Existing Guard, Enter Other Guard's Name"
+            Clock.schedule_once(lambda dt: setattr(self.label, 'text', ""), 3)
+
+        self.guard_delete_entry.text = ""

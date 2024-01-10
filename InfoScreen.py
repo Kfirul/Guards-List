@@ -14,7 +14,7 @@ class PositionDetailScreen(Screen):
 
         self.dialog = MDDialog(
             title=f"Position: {position.name}",
-            text=f"Amount of Guards: {position.numOfGuards}\nTime to Guard: {position.timeToGuard} minutes",
+            text=f"Amount of Guards: {position.numOfGuards}\nGuarding Time: {position.guardingTime} minutes",
             buttons=[
                 MDRaisedButton(text="Close", on_release=self.close_dialog)
             ]
@@ -42,9 +42,18 @@ class InfoScreen(Screen):
         self.toolbar.pos_hint = {"top": 1}
         self.add_widget(self.toolbar)
 
-
         # Create a layout to hold the information
-        layout = BoxLayout(orientation="vertical", spacing=10, padding=10)
+        self.layout = BoxLayout(orientation="vertical", spacing=10, padding=10)
+
+        # Add the layout to the screen
+        self.add_widget(self.layout)
+
+        # Update information when the screen is shown
+        self.bind(on_enter=self.update_info)
+
+    def update_info(self, *args):
+        # Clear existing widgets from the layout
+        self.layout.clear_widgets()
 
         # Create horizontal layout for guards list and positions list
         horizontal_layout = BoxLayout(orientation="horizontal", spacing=10)
@@ -77,10 +86,7 @@ class InfoScreen(Screen):
         positions_scroll_view.add_widget(positions_list)
         horizontal_layout.add_widget(positions_scroll_view)
 
-        layout.add_widget(horizontal_layout)
-
-        # Add the layout to the screen
-        self.add_widget(layout)
+        self.layout.add_widget(horizontal_layout)
 
     def show_position_details(self, position):
         position_detail_screen = PositionDetailScreen(position)

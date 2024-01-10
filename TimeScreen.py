@@ -18,11 +18,19 @@ class TimeScreen(Screen):
         super(TimeScreen, self).__init__(**kwargs)
         self.shavtzak_instance = None
 
-        self.toolbar = MDTopAppBar()
+        self.toolbar = MDTopAppBar(
+            md_bg_color=(0.2, 0.7, 0.5, 1)
+        )
         self.toolbar.pos_hint = {"top": 1}
-        self.toolbar.md_bg_color = colors["Teal"]["A700"]
-
         self.add_widget(self.toolbar)
+        self.label = MDLabel(
+            text="Welcome!\n First set the start hour to guard",
+
+            halign="center",
+            pos_hint={"center_x": 0.5, "center_y": 0.7},
+            theme_text_color="Secondary"
+        )
+        self.add_widget(self.label)
 
         # Collect user input
         self.inputTime = MDTextField(
@@ -41,7 +49,7 @@ class TimeScreen(Screen):
             font_size=17,
             pos_hint={"center_x": 0.5, "center_y": 0.4},
         )
-        set_button.bind(on_press=lambda x: self.set_shavtzak_instance(x, screen_manager))  # Pass both parameters
+        set_button.bind(on_press=lambda x: self.set_shavtzak_instance(x, screen_manager))
         self.add_widget(set_button)
 
 
@@ -63,10 +71,10 @@ class TimeScreen(Screen):
             main_screen = MainScreen(screen_manager,self.shavtzak_instance, name="main_screen")
             screen_manager.add_widget(main_screen)
 
-            # Switch to a new screen (you need to implement this method)
             self.switch_screen(screen_manager, "main_screen")
 
         except ValueError:
+            self.inputTime.text = ""
             print("Invalid time format. Please enter time in HH:MM format.")
 
     # ... other methods ...
