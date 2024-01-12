@@ -69,7 +69,7 @@ class Shavtzak:
         - True if the position was successfully added.
         - False if the position with the same name already exists.
         """
-        if position.name not in [p.name for p in self.positionList]:
+        if position.name not in [p.name for p in self.positionList] and position.guardingTime % 5 ==0:
             self.positionList.append(position)
             return True
         else:
